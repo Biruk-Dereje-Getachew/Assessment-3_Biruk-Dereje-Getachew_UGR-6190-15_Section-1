@@ -55,6 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
                firstOperand = parseFloat(currentInput);
                operator = value;
                currentInput = "";
+            } else if (firstOperand && operator && !currentInput) {
+               operator = value;
             } else if (currentInput && firstOperand) {
                const secondOperand = parseFloat(currentInput);
                let result;
@@ -78,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
                display.value = result;
             }
          } else {
-            if (currentInput === "0" && value === "0" && !operator) {
+            if (currentInput === "0" && value === "0") {
                currentInput = "0";
                display.value = currentInput;
             } else if (value === "0" && operator === "/") {
@@ -87,7 +89,11 @@ document.addEventListener("DOMContentLoaded", function () {
                firstOperand = "";
                operator = "";
             } else {
-               currentInput += value;
+               if (currentInput === "0") {
+                  currentInput = value;
+               } else {
+                  currentInput += value;
+               }
                display.value = currentInput;
             }
          }
