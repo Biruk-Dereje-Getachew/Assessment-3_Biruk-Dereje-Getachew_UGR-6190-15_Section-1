@@ -84,6 +84,10 @@ document.addEventListener("DOMContentLoaded", function () {
                currentInput = "";
                firstOperand = "";
                operator = "";
+            } else if (firstOperand && !operator && !currentInput) {
+               firstOperand = "";
+               currentInput = value;
+               display.value = currentInput;
             } else {
                if (currentInput === "0") {
                   currentInput = value;
