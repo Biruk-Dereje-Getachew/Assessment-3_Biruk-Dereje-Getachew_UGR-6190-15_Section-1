@@ -26,28 +26,24 @@ document.addEventListener("DOMContentLoaded", function () {
          } else if (value === "=") {
             if (firstOperand && operator && currentInput) {
                const secondOperand = parseFloat(currentInput);
-               if (secondOperand === 0 && operator === "/") {
-                  display.value = "Error";
-               } else {
-                  let result;
-                  switch (operator) {
-                     case "+":
-                        result = firstOperand + secondOperand;
-                        break;
-                     case "-":
-                        result = firstOperand - secondOperand;
-                        break;
-                     case "*":
-                        result = firstOperand * secondOperand;
-                        break;
-                     case "/":
-                        result = firstOperand / secondOperand;
-                        break;
-                  }
-                  display.value = result;
+               let result;
+               switch (operator) {
+                  case "+":
+                     result = firstOperand + secondOperand;
+                     break;
+                  case "-":
+                     result = firstOperand - secondOperand;
+                     break;
+                  case "*":
+                     result = firstOperand * secondOperand;
+                     break;
+                  case "/":
+                     result = firstOperand / secondOperand;
+                     break;
                }
+               display.value = result;
+               firstOperand = result;
                currentInput = "";
-               firstOperand = "";
                operator = "";
             }
          } else if (["+", "-", "*", "/"].includes(value)) {
@@ -55,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
                firstOperand = parseFloat(currentInput);
                operator = value;
                currentInput = "";
-            } else if (firstOperand && operator && !currentInput) {
+            } else if ((firstOperand && operator && !currentInput) || (!currentInput && firstOperand)) {
                operator = value;
             } else if (currentInput && firstOperand) {
                const secondOperand = parseFloat(currentInput);
