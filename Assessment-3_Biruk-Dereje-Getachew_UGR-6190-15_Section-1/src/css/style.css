@@ -67,10 +67,10 @@ body {
    background-color: #e65022;
 }
 
-#clear {
+.clear {
    background-color: #d9534f;
 }
 
-#clear:hover {
+.clear:hover {
    background-color: #c9302c;
 }
