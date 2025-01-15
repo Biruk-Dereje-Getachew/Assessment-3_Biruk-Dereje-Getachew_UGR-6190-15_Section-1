@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
    let currentInput = "";
    let operator = "";
    let firstOperand = "";
+   let activeOperatorButton = null;
 
    buttons.forEach((button) => {
       button.addEventListener("click", function () {
          const value = this.getAttribute("data-value");
-         console.log(value);
 
          if (value === "C") {
             currentInput = "";
@@ -45,14 +45,28 @@ document.addEventListener("DOMContentLoaded", function () {
                firstOperand = result;
                currentInput = "";
                operator = "";
+               if (activeOperatorButton) {
+                  activeOperatorButton.classList.remove("active");
+                  activeOperatorButton = null;
+               }
             }
          } else if (["+", "-", "*", "/"].includes(value)) {
             if (currentInput && !firstOperand) {
                firstOperand = parseFloat(currentInput);
                operator = value;
                currentInput = "";
+               if (activeOperatorButton) {
+                  activeOperatorButton.classList.remove("active");
+               }
+               this.classList.add("active");
+               activeOperatorButton = this;
             } else if ((firstOperand && operator && !currentInput) || (!currentInput && firstOperand)) {
                operator = value;
+               if (activeOperatorButton) {
+                  activeOperatorButton.classList.remove("active");
+               }
+               this.classList.add("active");
+               activeOperatorButton = this;
             } else if (currentInput && firstOperand) {
                const secondOperand = parseFloat(currentInput);
                let result;
@@ -74,8 +88,17 @@ document.addEventListener("DOMContentLoaded", function () {
                operator = value;
                currentInput = "";
                display.value = result;
+               if (activeOperatorButton) {
+                  activeOperatorButton.classList.remove("active");
+               }
+               this.classList.add("active");
+               activeOperatorButton = this;
             }
          } else {
+            if (activeOperatorButton) {
+               activeOperatorButton.classList.remove("active");
+               activeOperatorButton = null;
+            }
             if (currentInput === "0" && value === "0") {
                currentInput = "0";
                display.value = currentInput;

@@ -57,6 +57,10 @@ body {
    background-color: #e67e22;
 }
 
+.operator.active {
+   background-color: #3498db; /* Change to a different color */
+}
+
 .equal {
    background-color: #f36412;
    grid-row: span 2;
